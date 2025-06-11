@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Stream Finder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            font-size: 1.1rem;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0056b3;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #007bff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sport Stream Finder</h1>
+        <form method="POST">
+            <input type="text" name="sport" placeholder="Enter a sport (e.g., Paralympics)" required>
+            <button type="submit">Find Stream</button>
+        </form>
+
+        {% if result %}
+        <h2>Streaming Information for {{ sport }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Broadcaster</th>
+                    <th>Website</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in result %}
+                <tr>
+                    <td>{{ item['Country'] }}</td>
+                    <td>{{ item['Broadcaster'] }}</td>
+                    <td><a href="{{ item['Website'] }}" target="_blank">{{ item['Website'] }}</a></td>
+                    <td>{{ item['Description'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No results found. Try entering a different sport.</p>
+        {% endif %}
+
+        <div class="footer">
+            <p>Powered by ChatGPT</p>
+        </div>
+    </div>
+</body>
+</html>
